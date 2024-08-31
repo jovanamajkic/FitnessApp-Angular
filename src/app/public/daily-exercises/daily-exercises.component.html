@@ -1,0 +1,16 @@
+<div class="container">
+    <mat-card class="card" *ngFor="let exercise of exercisesPage">
+        <mat-card-header>
+            <mat-card-title>{{ exercise.name }}</mat-card-title>
+            <mat-card-subtitle>Difficulty: {{ exercise.difficulty }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>{{ exercise.instructions }}</mat-card-content>
+    </mat-card>
+</div>
+<mat-paginator 
+    [length]="exercises.length"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="handlePageEvent($event)"
+    aria-label="Select page">
+</mat-paginator>

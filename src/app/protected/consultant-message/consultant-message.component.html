@@ -1,0 +1,15 @@
+<div class="container">
+    <mat-card>
+        <mat-card-content>
+            <form [formGroup]="formMessage">
+                <mat-form-field appearance="fill">
+                    <mat-label>Write message to consultant</mat-label>
+                    <textarea matInput formControlName="message" rows="10" required></textarea>
+                </mat-form-field>
+            </form>
+            <div class="button-container">
+                <button mat-raised-button color="primary" [disabled]="formMessage.invalid" (click)="sendMessage()">Send message</button>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

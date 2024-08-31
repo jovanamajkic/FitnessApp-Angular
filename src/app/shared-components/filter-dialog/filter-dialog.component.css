@@ -1,0 +1,20 @@
+.content{
+    width: 100%;
+    max-width: 600px; /* ili koliko god želite maksimalnu širinu */
+    box-sizing: border-box;
+}
+
+.content mat-form-field{
+    width: 100%;
+}
+
+.range {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.actions-container{
+    width: 100%; 
+    justify-content: end;
+}

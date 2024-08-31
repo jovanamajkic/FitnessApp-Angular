@@ -1,0 +1,84 @@
+.background{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url('/assets/background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.title{
+    width: 100%;
+    text-align: center;
+}
+
+.contentLogin{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4%;
+}
+
+.contentRegister{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.card{
+    min-width: 400px;
+    max-width: 600px;
+    padding: 2%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.upload-container{
+    padding: 0 2% 5% 2%;
+    display: flex;
+    align-content: center;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    padding: 2%;
+}
+
+.registerContainer{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+.registerBtn{
+    width: 50%;
+}
+
+@media (min-width: 600px) {
+    .card {
+        min-width: 400px;
+    }
+
+    .field {
+        width: 46%;
+        padding: 2%;
+    }
+}
+
+@media (max-width: 600px) {
+    .contentRegister {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .field {
+        width: 96%;
+    }
+}
+
+

@@ -1,0 +1,31 @@
+.header{
+    display: flex;
+    justify-content: end;
+}
+  
+.program-list{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 20px;
+}
+
+.program-card{
+    padding: 2%;
+    flex: 1 1 calc(25% - 20px);
+    margin: 10px;
+}
+
+.program-card:hover{
+    background-color: rgba(217, 216, 216, 0.622);
+}
+
+.program-img{
+    width: 200px;
+}
+
+.card-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

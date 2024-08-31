@@ -1,0 +1,27 @@
+<div class="dialog">
+    <h1 mat-dialog-title>Search</h1>
+    <mat-dialog-content class="content">
+        <form [formGroup]="searchForm">
+            <mat-form-field appearance="fill">
+                <mat-label>Title</mat-label>
+                <input matInput formControlName="title">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Description</mat-label>
+                <input matInput formControlName="description">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Instructor</mat-label>
+                <input matInput formControlName="instructor">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Contact</mat-label>
+                <input matInput formControlName="contact">
+            </mat-form-field>
+        </form>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <button mat-button color="warn" mat-dialog-close>Cancel</button>
+        <button mat-flat-button color="primary" (click)="onApply()">Search</button>
+    </mat-dialog-actions>
+</div>

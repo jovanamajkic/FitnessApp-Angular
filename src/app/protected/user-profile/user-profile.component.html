@@ -1,0 +1,42 @@
+<div class="container">
+    <mat-card class="card-user">
+        <mat-card-content>
+            <img mat-card-image [src]="imageSrc" alt="Profile photo" >
+            <div class="buttons-container">
+                <button mat-icon-button color="primary" matTooltip="Change profile photo" (click)="fileInput.click()">
+                    <mat-icon>image</mat-icon>
+                </button>
+                <button mat-icon-button color="primary" matTooltip="Delete profile photo" (click)="deletePhoto()">
+                    <mat-icon>delete</mat-icon>
+                </button>
+                <input type="file" formControlName="avatar" #fileInput (change)="onFileSelected($event)" accept="image/*" style="display: none;">
+            </div>
+            <form [formGroup]="formProfile">
+                <mat-form-field appearance="fill">
+                    <mat-label>Username</mat-label>
+                    <input matInput formControlName="username">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>First name</mat-label>
+                    <input matInput required formControlName="firstName">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Last name</mat-label>
+                    <input matInput required formControlName="lastName">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>Email</mat-label>
+                    <input matInput required formControlName="email">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>City</mat-label>
+                    <input matInput required formControlName="city">
+                </mat-form-field>
+                <div class="change-pass">
+                    <button mat-stroked-button (click)="openDialog()">CHANGE PASSWORD</button>
+                </div>
+                <button mat-flat-button color="primary" (click)="update()">SAVE</button>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

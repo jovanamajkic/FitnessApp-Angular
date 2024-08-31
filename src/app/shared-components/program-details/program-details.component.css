@@ -1,0 +1,55 @@
+.card{
+    padding: 1%;
+}
+
+.pictures-container{
+    display: flex;
+    flex-direction: row;
+    gap: 1%;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.picture{
+    height: 200px;
+    width: auto;
+}
+
+.actions{
+    gap: 1%;
+    padding-top: 2%;
+}
+
+.comments{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.avatar {
+    width: auto;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.avatar-container {
+    display: flex;
+    align-items: center;
+    margin-right: 16px;
+}
+
+mat-card-header{
+    display: flex;
+    align-items: center;
+}
+
+.username{
+    font-size: larger;
+    font-weight: 600;
+}
+
+.date{
+    margin-left: 16px;
+    color: gray;
+}

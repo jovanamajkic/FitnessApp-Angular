@@ -1,0 +1,51 @@
+<mat-toolbar color="primary" class="toolbar">
+    <button mat-icon-button (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <span class="title">FitOnline</span>
+    <span class="spacer"></span>
+    <button mat-raised-button color="accent" routerLink="auth/login" *ngIf="!isLoggedIn()" matTooltip="Login/Register"><mat-icon>login</mat-icon>Login/Register</button>
+    <button mat-flat-button color="primary" (click)="logout()" *ngIf="isLoggedIn()" matTooltip="Logout"><mat-icon>logout</mat-icon>Logout</button>
+</mat-toolbar>
+<mat-sidenav-container class="container" >
+    <mat-sidenav #drawer mode="side" class="drawer" fixedinViewport="false" fixedTopGap="50">
+        <mat-nav-list>
+            <mat-list-item [routerLink]="['/public']">
+                <div class="menu-button"><mat-icon>home</mat-icon>&emsp;Home</div>
+            </mat-list-item>
+            <mat-list-item [routerLink]="['/public/exercises']">
+                <div class="menu-button"><mat-icon>directions_run</mat-icon>&emsp;Daily exercises</div>
+            </mat-list-item>
+            <mat-list-item [routerLink]="['/public/programs']">
+                <div class="menu-button"><mat-icon>explore</mat-icon>&emsp;Programs</div>
+            </mat-list-item>
+            <mat-list-item *ngIf="isLoggedIn()" [routerLink]="['/protected/myprograms']">
+                <div class="menu-button"><mat-icon>fitness_center</mat-icon>&emsp;My programs</div>
+            </mat-list-item>
+            <mat-list-item *ngIf="isLoggedIn()" [routerLink]="['/protected/purchased_programs']">
+                <div class="menu-button"><mat-icon>shopping_bag</mat-icon>&emsp;Purchased programs</div>
+            </mat-list-item>
+            <mat-list-item *ngIf="isLoggedIn()" [routerLink]="['/protected/newprogram']">
+                <div class="menu-button"><mat-icon>add_box</mat-icon>&emsp;New program</div>
+            </mat-list-item>
+            <mat-list-item *ngIf="isLoggedIn()" [routerLink]="['/protected/activity_tracker']">
+                <div class="menu-button"><mat-icon>bar_chart_4_bars</mat-icon>&emsp;Activity tracker</div>
+            </mat-list-item>
+            <mat-list-item *ngIf="isLoggedIn()" [routerLink]="['/protected/consultant_message']">
+                <div class="menu-button"><mat-icon>mail</mat-icon>&emsp;Ask consultant</div>
+            </mat-list-item>
+            <mat-list-item *ngIf="isLoggedIn()" [routerLink]="['/protected/inbox']">
+                <div class="menu-button"><mat-icon>forum</mat-icon>&emsp;Inbox</div>
+            </mat-list-item>
+            <mat-list-item *ngIf="isLoggedIn()" [routerLink]="['/protected/category_subscription']">
+                <div class="menu-button"><mat-icon>category</mat-icon>&emsp;Categories</div>
+            </mat-list-item>
+            <mat-list-item *ngIf="isLoggedIn()" [routerLink]="['/protected/myprofile']">
+                <div class="menu-button"><mat-icon>account_circle</mat-icon>&emsp;Account</div>
+            </mat-list-item>
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content class="content">
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

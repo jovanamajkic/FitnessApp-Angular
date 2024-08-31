@@ -1,0 +1,60 @@
+<mat-card *ngIf="program" class="card">
+    <mat-card-title>{{ program.title }}</mat-card-title>
+    <div *ngIf="program.images && program.images.length>0" class="pictures-container">
+        <img *ngFor="let image of program.images" mat-card-image class="picture" [src]="image.url" alt="{{ program.title }}">
+    </div>
+    <mat-card-content>
+        <p>{{ program.description }}</p>
+        <p><strong>Price:</strong> {{ program.price | currency }}</p>
+        <p><strong>Category:</strong> {{ program.category.name }}</p>
+        <p *ngFor="let value of values | keyvalue"><strong>{{ value.key }}:</strong> {{ value.value }}</p>
+        <p><strong>Difficulty level:</strong> {{ program.dificultyLevel }}</p>
+        <p><strong>Duration:</strong> {{ program.duration }} days</p>
+        <p><strong>Location:</strong> {{ program.location }}</p>
+        <p><strong>Instructor name:</strong> {{ program.instructor }}</p>
+        <p><strong>Instructor contact:</strong> {{ program.contact }}</p>
+        <p *ngIf="isLoggedIn() && isPurchased"><strong>Purchased date:</strong> {{ startDate | date }}</p>
+    </mat-card-content>
+    <mat-card-actions *ngIf="isLoggedIn()" class="actions">
+        <button mat-raised-button color="primary" *ngIf="!isUserCreator() && !isPurchased" (click)="buy()">
+            <mat-icon>shopping_cart</mat-icon>
+            Buy
+        </button>
+        <button mat-raised-button color="primary" (click)="openDialog()" *ngIf="!isUserCreator()">
+            <mat-icon>add</mat-icon>
+            Add comment
+        </button>
+        <button mat-raised-button color="warn" *ngIf="isUserCreator()" (click)="delete()">
+            <mat-icon>delete</mat-icon>
+            Delete
+        </button>
+        <button mat-raised-button color="warn" *ngIf="program.location === 'ONLINE' && isPurchased && !isCompleted" (click)="playVideo()">
+            <mat-icon>play_circle</mat-icon>
+            Play video
+        </button>
+    </mat-card-actions>
+    <mat-card-footer *ngIf="isLoggedIn() && isPurchased">
+        <mat-progress-bar mode="determinate" [value]="progresbar" [matTooltip]="tooltip"></mat-progress-bar>
+    </mat-card-footer>
+</mat-card>
+<div class="comments">
+    <h3>Comments</h3>
+    <div *ngIf="comments && comments.length > 0" class="comments">
+        <mat-card *ngFor="let comment of comments">
+            <mat-card-header>
+                <div class="avatar-container">
+                    <img *ngIf="comment.user.avatar" mat-card-image [src]="comment.user.avatar" class="avatar">
+                </div>
+                <p class="username">{{ comment.user.username }}</p>
+            </mat-card-header>
+            <mat-card-content>
+                <p>{{ comment.content }}</p>
+            </mat-card-content>
+            <mat-card-footer>
+                <p class="date">{{ comment.dateTime | date:'dd-MM-yyyy HH:mm:ss' }}</p>
+            </mat-card-footer>
+        </mat-card>
+    </div>
+    <mat-paginator [length]="totalComments" [pageSizeOptions]="[5, 10, 20]" [pageSize]="pageSize" (page)="paginate($event)"></mat-paginator>
+</div>
+  

@@ -1,0 +1,14 @@
+.content{
+    width: 100%;
+    max-width: 600px;
+    box-sizing: border-box;
+}
+
+.content mat-form-field{
+    width: 100%;
+}
+
+.dialog mat-dialog-actions{
+    width: 100%;
+    justify-content: end;
+}

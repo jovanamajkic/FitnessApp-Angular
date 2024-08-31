@@ -1,0 +1,67 @@
+<div class="container">
+    <mat-card class="card">
+        <mat-card-content class="content">
+            <form [formGroup]="formProgram">
+                <div class="section">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Title</mat-label>
+                        <input matInput formControlName="title" required>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Description</mat-label>
+                        <textarea matInput formControlName="description" required rows="4"></textarea>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Category</mat-label>
+                        <mat-select formControlName="category" required  (selectionChange)="onCategoryChange($event.value)">
+                            <mat-option *ngFor="let category of categories" [value]="category">{{category.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="section">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Duration</mat-label>
+                        <input matInput type="number" formControlName="duration" required min="1" max="100">
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Price</mat-label>
+                        <input matInput type="number" formControlName="price" required min="0" max="1000">
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Difficulty level</mat-label>
+                        <mat-select formControlName="difficultyLevel" required>
+                            <mat-option *ngFor="let level of difficultyLevels | keyvalue" [value]="level.key">{{ level.value }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Location</mat-label>
+                        <mat-select formControlName="location" (selectionChange)="onLocationChange($event.value)" required>
+                            <mat-option *ngFor="let location of locations | keyvalue" [value]="location.key">{{ location.value }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="section">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Instructor</mat-label>
+                        <input matInput formControlName="instructor" required>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Instructors contact</mat-label>
+                        <input matInput formControlName="contact" required>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" *ngIf="formProgram.get('location')?.value === 'ONLINE'">
+                        <mat-label>Video URL</mat-label>
+                        <input matInput formControlName="videoURL" required>
+                    </mat-form-field>
+                    <button class="images-selector" mat-stroked-button color="primary" (click)="fileInput.click()">
+                        <mat-icon>add_photo_alternate</mat-icon>Select images
+                    </button>
+                    <input type="file" formControlName="images" #fileInput (change)="onFileSelected($event)" accept="image/*" multiple style="display: none;">
+                </div>
+            </form>
+            <div class="button-container">
+                <button mat-raised-button color="primary" [disabled]="formProgram.invalid" (click)="createProgram()">Create new program</button>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

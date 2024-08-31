@@ -1,0 +1,10 @@
+{
+    "/feed": {
+        "target": "https://feeds.feedburner.com",
+        "secure": false,
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/feed": ""
+        }
+    }
+}

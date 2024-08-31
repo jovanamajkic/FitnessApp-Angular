@@ -1,0 +1,20 @@
+<div class="header">
+    <button mat-icon-button color="primary" matTooltip="Search" (click)="openSearchDialog()">
+        <mat-icon>search</mat-icon>
+    </button>
+    <button mat-icon-button color="primary" matTooltip="Filter" (click)="openFilterDialog()">
+        <mat-icon>filter_list</mat-icon>
+    </button>
+    <button mat-icon-button color="primary" matTooltip="Reset" (click)="resetPrograms()">
+        <mat-icon>refresh</mat-icon>
+    </button>
+</div>
+<div class="program-list">
+    <mat-card *ngFor="let program of pagedPrograms" class="program-card" (click)="viewDetails(program)">
+        <mat-card-title>{{ program.title }}</mat-card-title>
+        <img mat-card-image *ngIf="program.images && program.images.length>0" class="program-img" [src]="program.images[0].url" alt="{{ program.title }}">
+        <mat-card-subtitle>{{ program.price | currency }}</mat-card-subtitle>
+    </mat-card>
+    
+</div>
+<mat-paginator [length]="totalPrograms" [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="pageSize" (page)="paginate($event)"></mat-paginator>

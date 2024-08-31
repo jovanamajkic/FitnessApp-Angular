@@ -1,0 +1,36 @@
+<div class="container">
+    <form [formGroup]="formMessage">
+        <div class="content">
+            <mat-form-field>
+                <mat-label>Select user</mat-label>
+                <mat-select formControlName="toUser" (selectionChange)="onSelectionChange($event.value)">
+                    <mat-option *ngFor="let user of users" [value]="user.id">{{ user.username }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <button mat-mini-fab color="primary" (click)="reset()" [disabled]="isResetDisabled" matTooltip="Show all messages"><mat-icon>restart_alt</mat-icon></button>
+        </div>
+
+        <div class="messages">
+            <mat-card *ngFor="let message of messages">
+                <mat-card-header>
+                    <mat-card-title>{{ message.user.username }}</mat-card-title>
+                    <mat-card-subtitle>{{ message.date | date }}</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    {{ message.content }}
+                    <button mat-icon-button *ngIf="message.isRead === false" class="read" (click)="markMessageRead(message.id)" matTooltip="Mark message read">
+                        <mat-icon>mark_email_read</mat-icon>
+                    </button>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+        <div class="content">
+            <mat-form-field>
+                <mat-label>Write message</mat-label>
+                <input matInput formControlName="content" required>
+            </mat-form-field>
+            <button mat-fab color="primary" (click)="sendMessage()" [disabled]="formMessage.invalid"><mat-icon>send</mat-icon></button>
+        </div>
+    </form>
+</div>

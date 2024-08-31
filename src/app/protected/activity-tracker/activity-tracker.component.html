@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="column">
+        <div class="cards">
+            <mat-card *ngFor="let tracker of trackers" class="tracker-card">
+                <mat-card-header>
+                    <p><strong>{{ tracker.date | date }}</strong></p>
+                </mat-card-header>
+                <mat-card-content>
+                    <p><strong>Exercise type:</strong> {{ tracker.exercise }}</p>
+                    <p><strong>Duration:</strong> {{ tracker.duration }} min</p>
+                    <p><strong>Intensity:</strong> {{ tracker.intensity }}</p>
+                    <p><strong>Result:</strong> {{ tracker.result }}</p>
+                    <p><strong>Body weight:</strong> {{ tracker.bodyWeight }}</p>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <mat-paginator [length]="totalTrackers" [pageSizeOptions]="[3, 6, 9, 12]" [pageSize]="pageSize" (page)="paginate($event)"></mat-paginator>
+    </div>
+    <div class="column">
+        <mat-card class="chart">
+            <mat-card-header>
+                <h3>Charts</h3>
+            </mat-card-header>
+            <mat-card-content>
+                <canvas baseChart
+                    [data]="chartData"
+                    [options]="chartOptions"
+                    [legend]="true"
+                    [type]="'line'">
+                </canvas>
+            </mat-card-content>
+        </mat-card>
+        <div class="btn-container">
+            <button mat-raised-button color="primary" [disabled]="isAddDisabled()" (click)="openDialog()"><mat-icon>add_circle</mat-icon>Add tracker</button>
+            <button mat-raised-button color="primary" (click)="downloadPdf()"><mat-icon>download</mat-icon>Download as PDF</button>
+        </div>
+    </div>
+</div>

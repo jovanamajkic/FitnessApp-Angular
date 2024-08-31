@@ -1,0 +1,16 @@
+<div class="container">
+    <h3 mat-dialog-title>Category attributes</h3>
+    <mat-dialog-content class="content">
+        <p>Select values for the corresponding attributes</p>
+        <mat-form-field *ngFor="let element of valuesMap | keyvalue">
+            <mat-label>{{ element.key.name }}</mat-label>
+            <mat-select multiple (selectionChange)="onSelectionChange($event.value, element.key)">
+                <mat-option *ngFor="let value of element.value" [value]="value">{{ value.value }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </mat-dialog-content>
+    <mat-dialog-actions class="actions-container">
+        <button mat-button color="warn" mat-dialog-close>Cancel</button>
+        <button mat-flat-button color="primary" (click)="onSave()">Save</button>
+    </mat-dialog-actions>
+</div>

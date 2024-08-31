@@ -1,0 +1,34 @@
+<h1 mat-dialog-title>Add activity tracker for today</h1>
+<mat-dialog-content class="content">
+    <form [formGroup]="trackerForm">
+        <mat-form-field appearance="fill">
+            <mat-label>Exercise</mat-label>
+            <mat-select formControlName="exercise" required>
+                <mat-option value="CARDIO">Cardio</mat-option>
+                <mat-option value="STRENTH">Strength</mat-option>
+                <mat-option value="FLEXIBILITY">Flexibility</mat-option>
+                <mat-option value="HIIT">HIIT</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Duration</mat-label>
+            <input matInput type="number" formControlName="duration" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Intensity</mat-label>
+            <input matInput formControlName="intensity" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Result</mat-label>
+            <input matInput formControlName="result" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Body weight</mat-label>
+            <input matInput type="number" formControlName="bodyWeight" step="0.1" required>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button color="warn" mat-dialog-close>Cancel</button>
+    <button mat-flat-button color="primary" (click)="onAdd()" [disabled]="trackerForm.invalid">Add</button>
+</mat-dialog-actions>

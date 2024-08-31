@@ -1,0 +1,19 @@
+<div *ngIf="feed.length > 0; else loading" class="cards">
+    <mat-card *ngFor="let item of feedPage">
+        <mat-card-header><h3>{{ item.title }}</h3></mat-card-header>
+        <mat-card-content>
+            <p>{{ item.description }}</p>
+            <a [href]="item.link" target="_blank">Read more</a>
+        </mat-card-content>
+    </mat-card>
+    <mat-paginator 
+        [length]="feed.length"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="pageSizeOptions"
+        (page)="handlePageEvent($event)"
+        aria-label="Select page">
+    </mat-paginator>
+</div>
+<ng-template #loading>
+<p>Loading feed...</p>
+</ng-template>

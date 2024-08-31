@@ -1,0 +1,60 @@
+<h2 mat-dialog-title>Filter Programs</h2>
+<mat-dialog-content class="content">
+  <form [formGroup]="filterForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Category</mat-label>
+      <mat-select formControlName="category" (selectionChange)="onCategoryChange($event.value)">
+        <mat-option *ngFor="let category of categories" [value]="category">{{ category.name }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div *ngIf="attributes && attributes.size>0">
+      <mat-form-field appearance="fill" *ngFor="let attribute of attributes | keyvalue">
+        <mat-label>{{ attribute.key.name }}</mat-label>
+        <mat-select [formControlName]="attribute.key.name">
+          <mat-option *ngFor="let value of attribute.value" [value]="value">{{ value.value }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Difficulty Level</mat-label>
+      <mat-select formControlName="dificultyLevel" matInput >
+        <mat-option *ngFor="let level of difficultyLevels | keyvalue" [value]="level.key">{{level.value}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Location</mat-label>
+      <mat-select formControlName="location">
+        <mat-option *ngFor="let location of locations | keyvalue" [value]="location.key">{{location.value}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="range">
+        <mat-form-field appearance="fill">
+            <mat-label>Min price</mat-label>
+            <input #minPr matInput type="number" formControlName="priceMin" min="0" [max]="maxPr.value">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Max price</mat-label>
+            <input #maxPr matInput type="number" formControlName="priceMax" [min]="minPr.value" max="1000">
+        </mat-form-field>
+    </div>
+
+    <div class="range">
+        <mat-form-field appearance="fill">
+            <mat-label>Min duration</mat-label>
+            <input #minDur matInput type="number" formControlName="durationMin" min="0" [max]="maxDur.value">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Max duration</mat-label>
+            <input #maxDur matInput type="number" formControlName="durationMax" [min]="minDur.value" max="1000">
+        </mat-form-field>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions class="actions-container">
+  <button mat-button color="warn" (click)="onCancel()">Cancel</button>
+  <button mat-flat-button color="primary" (click)="onApply()">Apply</button>
+</mat-dialog-actions>
