@@ -50,7 +50,6 @@ export class FilterDialogComponent implements OnInit {
   ngOnInit(): void {
     this.categoryService.getCategories().subscribe((data: Category[]) => {
       this.categories = data;
-      console.log(this.categories);
     });
   }
 
@@ -64,6 +63,7 @@ export class FilterDialogComponent implements OnInit {
   }
 
   onCategoryChange(event: any){
+    this.removeAttributeControls();
     event.attributes.forEach((attr: any) => {
       this.attributeService.getValues(attr.id).subscribe(data => this.attributes.set(attr, data));
       this.addAttributeControl(attr);
@@ -75,6 +75,16 @@ export class FilterDialogComponent implements OnInit {
     if (!this.filterForm.contains(attributeControlName)) {
       this.filterForm.addControl(attributeControlName, new FormControl(''));
     }
+  }
+  
+  removeAttributeControls(): void {
+    const keys = Array.from(this.attributes.keys());
+    keys.forEach((attr) => {
+      if (this.filterForm.contains(attr.name)) {
+        this.filterForm.removeControl(attr.name);
+      }
+    });
+    this.attributes.clear();
   }
 
   updateAttributesControl(): void {

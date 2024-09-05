@@ -49,7 +49,7 @@ export class CategorySubscriptionComponent implements OnInit {
     this.service.subscribe(request).subscribe({
       next: () => {
         this.snackBar.open('You have successfully subscribed to category.', undefined, { duration: 2000 });
-        this.categories.set(category, false);
+        this.categories.set(category, true);
       },
       error: () => this.snackBar.open('An error occurred.', undefined, { duration: 2000 })
     })

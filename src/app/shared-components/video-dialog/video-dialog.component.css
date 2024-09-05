@@ -1,5 +1,19 @@
+.dialog{
+    width: fit-content;
+}
+
+.video-container{
+    width: 100%;
+}
+
 .btn-container{
     width: 100%;
     display: flex;
     justify-content: flex-end;
+}
+
+@media (max-width: 600px) {
+    iframe{
+        width: 80vw;
+    }
 }

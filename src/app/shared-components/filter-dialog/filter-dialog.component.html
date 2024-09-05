@@ -34,22 +34,22 @@
     <div class="range">
         <mat-form-field appearance="fill">
             <mat-label>Min price</mat-label>
-            <input #minPr matInput type="number" formControlName="priceMin" min="0" [max]="maxPr.value">
+            <input #minPr matInput type="number" formControlName="priceMin" min="0" [max]="maxPr.value" value="0">
         </mat-form-field>
         <mat-form-field appearance="fill">
             <mat-label>Max price</mat-label>
-            <input #maxPr matInput type="number" formControlName="priceMax" [min]="minPr.value" max="1000">
+            <input #maxPr matInput type="number" formControlName="priceMax" [min]="minPr.value" value="1000">
         </mat-form-field>
     </div>
 
     <div class="range">
         <mat-form-field appearance="fill">
             <mat-label>Min duration</mat-label>
-            <input #minDur matInput type="number" formControlName="durationMin" min="0" [max]="maxDur.value">
+            <input #minDur matInput type="number" formControlName="durationMin" min="0" [max]="maxDur.value" value="0">
         </mat-form-field>
         <mat-form-field appearance="fill">
             <mat-label>Max duration</mat-label>
-            <input #maxDur matInput type="number" formControlName="durationMax" [min]="minDur.value" max="1000">
+            <input #maxDur matInput type="number" formControlName="durationMax" [min]="minDur.value" value="1000">
         </mat-form-field>
     </div>
   </form>

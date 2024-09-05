@@ -3,7 +3,7 @@ import { Program } from '../../models/program.model';
 import { ProgramService } from '../services/program.service';
 import { PageEvent } from '@angular/material/paginator';
 import { ImageService } from '../../services/image.service';
-import { catchError, forkJoin, map, of } from 'rxjs';
+import { catchError, forkJoin, map, merge, of, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-all-programs',
@@ -24,30 +24,30 @@ export class AllProgramsComponent implements OnInit {
   }
 
   loadPrograms(): void {
-    this.programService.getPrograms().subscribe(data => {
-      this.programs = data;
-      this.totalPrograms = this.programs.length;
-      console.log(this.programs);
-      this.loadImages();
-    });
-  }
+    this.programService.getPrograms().pipe(
+      switchMap(data => {
+        const imageRequests = data.flatMap(program =>
+          program.images.map(image =>
+            this.imageService.getUrl(image.url)?.pipe(
+              map((url: string) => {
+                image.url = url;
+                return image;
+              }),
+              catchError(error => {
+                console.error(`Failed to load image for url ${image.url}`, error);
+                return of(null);
+              })
+            )
+          )
+        );
 
-  loadImages(): void {
-    const imageRequests = this.programs.map(program =>
-      program.images.map(image =>
-        this.imageService.getUrl(image.url)?.pipe(
-          map((data: string) => image.url = data),
-          catchError(error => {
-            console.error(`Failed to load image for url ${image.url}`, error);
-            return of(null);
-          })
-        )
-      )
-    ).flat();
-  
-    forkJoin(imageRequests).subscribe(() => {
-      console.log(this.programs[this.programs.length - 1].images[0]);
-      
+        return forkJoin(imageRequests).pipe(
+          map(() => data)
+        );
+      })
+    ).subscribe(updatedPrograms => {
+      this.programs = updatedPrograms;
+      this.totalPrograms = this.programs.length;
     });
   }
 

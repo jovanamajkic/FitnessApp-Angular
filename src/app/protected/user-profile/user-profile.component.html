@@ -9,7 +9,7 @@
                 <button mat-icon-button color="primary" matTooltip="Delete profile photo" (click)="deletePhoto()">
                     <mat-icon>delete</mat-icon>
                 </button>
-                <input type="file" formControlName="avatar" #fileInput (change)="onFileSelected($event)" accept="image/*" style="display: none;">
+                <input type="file" #fileInput (change)="onFileSelected($event)" accept="image/*" style="display: none;">
             </div>
             <form [formGroup]="formProfile">
                 <mat-form-field appearance="fill">

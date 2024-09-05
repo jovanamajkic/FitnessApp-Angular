@@ -11,3 +11,9 @@ mat-dialog-actions{
 mat-form-field{
     width: 100%;
 }
+
+@media (max-width: 600px) {
+    .dialog{
+        width: 70vw;
+    }
+}

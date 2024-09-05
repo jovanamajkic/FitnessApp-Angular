@@ -1,8 +1,8 @@
 <h2 mat-dialog-title>Confirmation</h2>
 <mat-dialog-content>
-  Are you sure you want to {{ key }} this item?
+  Are you sure you want to {{ key }}?
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>No</button>
-  <button mat-button (click)="onYes()" cdkFocusInitial>Yes</button>
+  <button mat-flat-button color="primary" (click)="onYes()" cdkFocusInitial>Yes</button>
 </mat-dialog-actions>

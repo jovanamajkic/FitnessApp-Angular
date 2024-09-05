@@ -3,7 +3,7 @@ import { Program } from '../../models/program.model';
 import { ProgramService } from '../../public/services/program.service';
 import { TokenService } from '../../auth/services/token.service';
 import { ImageService } from '../../services/image.service';
-import { catchError, forkJoin, map, of } from 'rxjs';
+import { catchError, forkJoin, map, merge, of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-my-programs',
@@ -26,29 +26,31 @@ export class MyProgramsComponent implements OnInit{
 
   loadPrograms(): void {
     const id = this.tokenService.getUser().id;
-    this.programService.getByUser(id).subscribe(data => {
-      this.programs = data;
-      this.totalPrograms = this.programs.length;
-      this.loadImages();
-    });
-  }
 
-  loadImages(): void {
-    const imageRequests = this.programs.map(program =>
-      program.images.map(image =>
-        this.imageService.getUrl(image.url)?.pipe(
-          map((data: string) => image.url = data),
-          catchError(error => {
-            console.error(`Failed to load image for url ${image.url}`, error);
-            return of(null);
-          })
-        )
-      )
-    ).flat();
-  
-    forkJoin(imageRequests).subscribe(() => {
-      console.log(this.programs[this.programs.length - 1].images[0]);
-      
+    this.programService.getByUser(id).pipe(
+      switchMap(data => {
+        const imageRequests = data.flatMap(program =>
+          program.images.map(image =>
+            this.imageService.getUrl(image.url)?.pipe(
+              map((url: string) => {
+                image.url = url;
+                return image;
+              }),
+              catchError(error => {
+                console.error(`Failed to load image for url ${image.url}`, error);
+                return of(null);
+              })
+            )
+          )
+        );
+
+        return forkJoin(imageRequests).pipe(
+          map(() => data)
+        );
+      })
+    ).subscribe(updatedPrograms => {
+      this.programs = updatedPrograms;
+      this.totalPrograms = this.programs.length;
     });
   }
 }

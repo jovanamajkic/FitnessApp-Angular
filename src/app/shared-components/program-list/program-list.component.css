@@ -6,13 +6,13 @@
 .program-list{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: flex-start;
     margin: 20px;
 }
 
 .program-card{
     padding: 2%;
-    flex: 1 1 calc(25% - 20px);
+    width: calc(25% - 20px);
     margin: 10px;
 }
 
@@ -21,11 +21,17 @@
 }
 
 .program-img{
-    width: 200px;
+    width: 90%;
 }
 
 .card-header{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+@media (max-width: 600px) {
+    .program-card{
+        width: calc(100% - 20px);
+    }
 }

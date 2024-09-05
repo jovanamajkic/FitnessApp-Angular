@@ -44,7 +44,7 @@ mat-drawer-content {
     color: rgb(63, 81, 181);
 }
 
-@media (max-width: 400px) {
+@media (max-width: 600px) {
     .drawer{
         min-width: 60px;
     }

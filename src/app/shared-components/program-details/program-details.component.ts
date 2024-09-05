@@ -68,7 +68,6 @@ export class ProgramDetailsComponent implements OnInit {
   userHasProgram() {
     this.userHasProgramService.get(this.user.id, this.program.id).subscribe(data => {
       if(data){
-        console.log("data ", data);
         this.isPurchased = true;
         this.startDate = data.startDate;
         this.isCompleted = data.isCompleted;
@@ -84,7 +83,6 @@ export class ProgramDetailsComponent implements OnInit {
 
   openDialog(){
     let dialogRef = this.dialog.open(CommentDialogComponent, {
-      width: '400px',
       data: { programId: this.program.id },
     });
 
@@ -95,7 +93,7 @@ export class ProgramDetailsComponent implements OnInit {
 
   delete(){
     let dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      data: { key: "delete" },
+      data: { key: "delete this program" },
       width: '300px'
     });
 
@@ -124,7 +122,6 @@ export class ProgramDetailsComponent implements OnInit {
         };
         this.userHasProgramService.insert(request).subscribe({
           next: (response) => {
-            console.log(response);
             this.snackBar.open('You have successfully purchased program.', undefined, { duration: 2000 });
             this.userHasProgram();
           },
@@ -173,9 +170,7 @@ export class ProgramDetailsComponent implements OnInit {
         }
       });
   
-      forkJoin(avatarRequests).subscribe(() => {
-        console.log('All avatars loaded ', this.comments);
-      });
+      forkJoin(avatarRequests).subscribe();
     })
   }
 
