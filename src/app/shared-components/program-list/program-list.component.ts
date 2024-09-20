@@ -18,7 +18,7 @@ export class ProgramListComponent implements OnChanges {
   pagedPrograms: Program[] = [];
   originalPrograms: Program[] = [];
   @Input() totalPrograms = 0;
-  pageSize = 10;
+  pageSize = 8;
   currentPage = 0;
   filterData: any = null;
   searchData: any = null;

@@ -7,7 +7,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { CommentService } from '../../protected/services/comment.service';
 import { ImageService } from '../../services/image.service';
 import { TokenService } from '../../auth/services/token.service';
-import { forkJoin, of, tap } from 'rxjs';
+import { catchError, forkJoin, map, of, tap } from 'rxjs';
 import { ProgramHasAttributeValueService } from '../../protected/services/program-has-attribute-value.service';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 import { ProgramService } from '../../public/services/program.service';
@@ -54,7 +54,8 @@ export class ProgramDetailsComponent implements OnInit {
     this.loadValues();
     this.loadComments();
     this.user = this.tokenService.getUser();
-    this.userHasProgram();
+    if(this.isLoggedIn())
+      this.userHasProgram();
   }
 
   isUserCreator(){
@@ -157,20 +158,28 @@ export class ProgramDetailsComponent implements OnInit {
 
   loadComments(){
     this.commentService.getByProgram(this.program.id, this.currentPage, this.pageSize).subscribe(data => {
-      this.comments = data.content;
       this.totalComments = data.totalElements;
-      
-      const avatarRequests = this.comments.map(comment => {
+
+      const avatarRequests = data.content.map((comment: any) => {
         if (comment.user.avatar) {
           return this.imageService.getUrl(comment.user.avatar)?.pipe(
-            tap(url => comment.user.avatar = url)
+            map(url => {
+              comment.user.avatar = url;
+              return comment;
+            }),
+            catchError(error => {
+              console.error(`Failed to load image for avatar ${comment.user.avatar}`, error);
+              return of(comment);
+            })
           );
         } else {
-          return of(null);
+          return of(comment);
         }
       });
   
-      forkJoin(avatarRequests).subscribe();
+      forkJoin(avatarRequests).subscribe((updatedComments: any) => {
+        this.comments = updatedComments;
+      });
     })
   }
 

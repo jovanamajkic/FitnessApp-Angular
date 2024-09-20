@@ -86,12 +86,16 @@ export class LoginComponent{
           }
           this.tokenS.saveUser(currUser);
           this.router.navigateByUrl('/');
-        } else {
-          this.openDialog();
         }
       },
       error: (response) => {
-        this.snackBar.open('Invalid username or password', undefined, { duration: 2000 });
+        if(response.status === 409){
+          this.openDialog();
+        } else {
+          this.snackBar.open('Invalid username or password', undefined, { duration: 2000 });
+          this.isLoading = false;
+          this.formLogin.reset();
+        } 
       },
       complete: () => {
         this.isLoading = false;

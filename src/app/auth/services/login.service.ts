@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RegistrationRequest } from '../../models/registration-request.model';
-import { BehaviorSubject, Observable, catchError, of, tap } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, of, tap, throwError } from 'rxjs';
 import { LoginRequest } from '../../models/login-request.model';
 import { LoginResponse } from '../../models/login-response.model';
 import { TokenService } from './token.service';
@@ -35,7 +35,7 @@ export class LoginService {
       catchError(error => {
         console.error('Login failed', error);
         this.isAuthenticatedSubject.next(false);
-        return of(null); 
+        return throwError(() => error);
       })
     );
   }
