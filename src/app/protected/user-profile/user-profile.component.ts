@@ -78,10 +78,6 @@ export class UserProfileComponent implements OnInit {
     reader.readAsDataURL(file);
   }
 
-  deletePhoto(): void {
-    this.imageSrc = "";
-  }
-
   update(): void {
     const request: UserUpdateRequest = {
       firstName: this.formProfile.value.firstName,

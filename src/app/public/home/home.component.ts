@@ -27,9 +27,6 @@ export class HomeComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error loading feed data:', error);
-      },
-      complete: () => {
-        console.log('Feed data loading completed.');
       }
     });
   }

@@ -6,9 +6,6 @@
                 <button mat-icon-button color="primary" matTooltip="Change profile photo" (click)="fileInput.click()">
                     <mat-icon>image</mat-icon>
                 </button>
-                <button mat-icon-button color="primary" matTooltip="Delete profile photo" (click)="deletePhoto()">
-                    <mat-icon>delete</mat-icon>
-                </button>
                 <input type="file" #fileInput (change)="onFileSelected($event)" accept="image/*" style="display: none;">
             </div>
             <form [formGroup]="formProfile">

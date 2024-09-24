@@ -70,28 +70,34 @@ export class ProgramListComponent implements OnChanges {
 
   applyFilter(): void {
     if (this.filterData) {
-      const requests = this.filterData.attributeValues.map((value: any) =>
-        this.service.getProgramsByValue(value.id)
-      );
+      this.programs = this.programs.filter(program => {
+        return (!this.filterData.category || program.category.id === this.filterData.category.id) &&
+               (!this.filterData.dificultyLevel || program.dificultyLevel.toString() === this.filterData.dificultyLevel.toString()) &&
+               (!this.filterData.location || program.location.toString() === this.filterData.location.toString()) &&
+               (this.filterData.priceMin == null || program.price >= this.filterData.priceMin) &&
+               (this.filterData.priceMax == null || program.price <= this.filterData.priceMax) &&
+               (this.filterData.durationMin == null || program.duration >= this.filterData.durationMin) &&
+               (this.filterData.durationMax == null || program.duration <= this.filterData.durationMax);
+      });
+      
+      if(this.filterData.attributeValues.length > 0){
+        const requests = this.filterData.attributeValues.map((value: any) =>
+          this.service.getProgramsByValue(value.id)
+        );
 
-      forkJoin(requests).subscribe((results: any) => {
-        const valuePrograms = results.flat();
-        console.log(valuePrograms);
+        forkJoin(requests).subscribe((results: any) => {
+          const valuePrograms = results.flat();
 
-        this.programs = this.programs.filter(program => {
-          return (!this.filterData.category || program.category.id === this.filterData.category.id) &&
-                 (!this.filterData.dificultyLevel || program.dificultyLevel.toString() === this.filterData.dificultyLevel.toString()) &&
-                 (!this.filterData.location || program.location.toString() === this.filterData.location.toString()) &&
-                 (this.filterData.priceMin == null || program.price >= this.filterData.priceMin) &&
-                 (this.filterData.priceMax == null || program.price <= this.filterData.priceMax) &&
-                 (this.filterData.durationMin == null || program.duration >= this.filterData.durationMin) &&
-                 (this.filterData.durationMax == null || program.duration <= this.filterData.durationMax) &&
-                 (valuePrograms.length === 0 || valuePrograms.some((p: any) => p.id === program.id));
+          this.programs = this.programs.filter(program => {
+            return (valuePrograms.length === 0 || valuePrograms.some((p: any) => p.id === program.id));
+          });
+          this.totalPrograms = this.programs.length;
+          
+          this.slicePrograms();
         });
-      this.totalPrograms = this.programs.length;
-      this.slicePrograms();
-    });
-
+      }else{
+        this.slicePrograms();
+      }
     } else if (this.searchData) {
       this.programs = this.programs.filter(program => {
         return (!this.searchData.title || program.title.toLowerCase().includes(this.searchData.title.toLowerCase())) &&

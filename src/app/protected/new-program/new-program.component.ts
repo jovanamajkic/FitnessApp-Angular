@@ -104,7 +104,10 @@ export class NewProgramComponent implements OnInit {
         this.addAttributeValues();
       },
       error: () => this.snackBar.open('An error occurred, program is not created', undefined, { duration: 2000 }),
-      complete: () => this.snackBar.open('Program is created successfully', undefined, { duration: 2000 })
+      complete: () => {
+        this.formProgram.reset();
+        this.snackBar.open('Program is created successfully', undefined, { duration: 2000 });
+      }
     });
 
   }

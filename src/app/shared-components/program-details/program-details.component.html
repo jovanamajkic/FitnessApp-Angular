@@ -28,7 +28,7 @@
             <mat-icon>delete</mat-icon>
             Delete
         </button>
-        <button mat-raised-button color="warn" *ngIf="program.location === 'ONLINE' && isPurchased && !isCompleted" (click)="playVideo()">
+        <button mat-raised-button color="warn" *ngIf="program.location === 'ONLINE' && isPurchased" (click)="playVideo()">
             <mat-icon>play_circle</mat-icon>
             Play video
         </button>

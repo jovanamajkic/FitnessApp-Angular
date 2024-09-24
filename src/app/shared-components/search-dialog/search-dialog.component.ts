@@ -24,7 +24,6 @@ export class SearchDialogComponent {
   }
 
   onApply(): void {
-    console.log(this.searchForm.value);
     this.dialogRef.close(this.searchForm.value);
   }
 
